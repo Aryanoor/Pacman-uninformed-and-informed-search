@@ -107,14 +107,30 @@ def depthFirstSearch(problem):
     
 def breadthFirstSearch(problem):
     """Search the shallowest nodes in the search tree first."""
-    "*** YOUR CODE HERE ***"
-    util.raiseNotDefined()
+    started_position = problem.getStartState()
+    print(started_position)
+    
+    if problem.isGoalState(started_position):
+        return []
+    
+    my_queue = util.Queue()
+    visited_nodes = []
+    my_queue.push((started_position, []))
+    while not my_queue.isEmpty():
+        current_node, actions = my_queue.pop()
+        if problem.isGoalState(current_node):
+            return actions
+        if current_node not in visited_nodes:
+            visited_nodes.append(current_node)
+            successors = problem.getSuccessors(current_node)
+            for successor in successors:
+                my_queue.push((successor[0], actions + [successor[1]]))
+    return []
 
 def uniformCostSearch(problem):
     """Search the node of least total cost first."""
     "*** YOUR CODE HERE ***"
     util.raiseNotDefined()
-
 def nullHeuristic(state, problem=None):
     """
     A heuristic function estimates the cost from the current state to the nearest
